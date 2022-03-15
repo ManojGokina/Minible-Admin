@@ -1,5 +1,5 @@
-import PropTypes from 'prop-types'
-import React, { useEffect } from "react"
+import PropTypes from 'prop-types';
+import React, { useEffect ,useState } from "react"
 
 import { Row, Col, Alert, Container ,CardBody,Card} from "reactstrap"
 
@@ -7,20 +7,40 @@ import { Row, Col, Alert, Container ,CardBody,Card} from "reactstrap"
 import { connect } from "react-redux"
 import { withRouter, Link } from "react-router-dom"
 
+import { loginUser, apiError, socialLogin } from "../../store/actions"
 // availity-reactstrap-validation
 import { AvForm, AvField } from "availity-reactstrap-validation"
 // import images
 import logo from "../../assets/images/logo-dark.png"
 import logolight from "../../assets/images/logo-light.png";
-import Main from '../dataFe/main'
+import Main from '../dataFe/main';
 
 const Login = (props) => {
+
+  const handleValidSubmit = (event, values) => {
+    console.log(values)
+    // props.loginUser(values)
+  }
  fetch("http://localhost:6767/getdata", {  
   }).then(function(response) {
     return response.json();
   }).then(data => {
     console.log(data.data);
   });
+
+  const[loginData,setLoginData]=useState({
+    email:"",
+    password:""
+  })
+
+  const{email,password}=loginData;
+  console.log(email);
+  console.log(password)
+  const changingEvent=(e)=>{
+    const {name,value}=e.target
+    setLoginData({...loginData,[name]:value})
+    console.log(loginData)
+  }
   return (
     <React.Fragment>
       <div className="home-btn d-none d-sm-block">
@@ -64,7 +84,7 @@ const Login = (props) => {
                         <AvField
                           name="email"
                           label="Email"
-                          value="admin@themesbrand.com"
+                          // value="admin@themesbrand.com"
                           className="form-control"
                           placeholder="Enter email"
                           type="email"
@@ -79,7 +99,7 @@ const Login = (props) => {
                         <AvField
                           name="password"
                           label="Password"
-                          value="123456"
+                          // value="123456"
                           type="password"
                           required
                           placeholder="Enter Password"

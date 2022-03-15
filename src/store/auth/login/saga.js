@@ -7,7 +7,7 @@ import { apiError, loginSuccess, logoutUserSuccess } from "./actions"
 //Include Both Helper File with needed methods
 import { getFirebaseBackend } from "../../../helpers/firebase_helper"
 import {
-  postFakeLogin,
+  postFakeLogin, 
   postJwtLogin,
   postSocialLogin,
 } from "../../../helpers/fakebackend_helper"
@@ -15,6 +15,8 @@ import {
 const fireBaseBackend = getFirebaseBackend()
 
 function* loginUser({ payload: { user, history } }) {
+    console.log(user)
+    console.log(history)
   try {
     if (process.env.REACT_APP_DEFAULTAUTH === "firebase") {
       const response = yield call(
@@ -79,11 +81,11 @@ function* socialLogin({ payload: { data, history, type } }) {
     yield put(apiError(error))
   }
 }
-
+ 
 function* authSaga() {
   yield takeEvery(LOGIN_USER, loginUser)
   yield takeLatest(SOCIAL_LOGIN, socialLogin)
   yield takeEvery(LOGOUT_USER, logoutUser)
 }
 
-export default authSaga
+export default authSaga 
