@@ -24,7 +24,6 @@ import invoices from "./invoices/reducer"
 //contacts
 import contacts from "./contacts/reducer"
 
-import usersData from "./main/MainReducers"
 
 const rootReducer = combineReducers({
   // public
@@ -38,7 +37,6 @@ const rootReducer = combineReducers({
   ecommerce,
   invoices,
   contacts,
-  usersData
 })
 
 export default rootReducer

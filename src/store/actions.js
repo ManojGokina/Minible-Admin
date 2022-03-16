@@ -19,8 +19,4 @@ export * from "./e-commerce/actions"
 export * from "./invoices/actions"
 
 // contacts
-export * from "./contacts/actions"
-
-//main 
-
-export * from "./main/MainActions"
+export * from "./contacts/actions" 

@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
-import React, { useEffect ,useState } from "react"
+import React, { useEffect ,useState } from "react";
+import { useDispatch ,useSelector } from 'react-redux';
 
 import { Row, Col, Alert, Container ,CardBody,Card} from "reactstrap"
 
@@ -13,20 +14,27 @@ import { AvForm, AvField } from "availity-reactstrap-validation"
 // import images
 import logo from "../../assets/images/logo-dark.png"
 import logolight from "../../assets/images/logo-light.png";
-import Main from '../dataFe/main';
+import { getLoginUsers } from '../../store/actions';
 
 const Login = (props) => {
+
+  const [users, setUsers] = useState([]);
+  console.log(users);
+ 
+   const dispatch = useDispatch();
+   const usersData = useSelector(state  => state.Login.users);
+   console.log(usersData);
+   
+
+   useEffect(()=>{
+     dispatch(getLoginUsers());
+     setUsers(usersData)
+   },[])
 
   const handleValidSubmit = (event, values) => {
     console.log(values)
     // props.loginUser(values)
   }
- fetch("http://localhost:6767/getdata", {  
-  }).then(function(response) {
-    return response.json();
-  }).then(data => {
-    console.log(data.data);
-  });
 
   const[loginData,setLoginData]=useState({
     email:"",
@@ -147,7 +155,7 @@ const Login = (props) => {
               </div>
             </Col>
           </Row>
-          <Main/>
+          {/* <Main/> */}
 
         </Container>
       </div>
