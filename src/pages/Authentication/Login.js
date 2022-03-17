@@ -18,18 +18,20 @@ import { getLoginUsers } from '../../store/actions';
 
 const Login = (props) => {
 
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState();
   console.log(users);
  
    const dispatch = useDispatch();
    const usersData = useSelector(state  => state.Login.users);
+  //  var arrayOfUsers = usersData;
    console.log(usersData);
-   
 
    useEffect(()=>{
      dispatch(getLoginUsers());
-     setUsers(usersData)
+     setUsers(usersData);
    },[])
+
+   
 
   const handleValidSubmit = (event, values) => {
     console.log(values)
@@ -40,6 +42,8 @@ const Login = (props) => {
     email:"",
     password:""
   })
+  const findData = usersData?.filter((e)=> e.Email === loginData.email);
+   console.log(findData)
 
   const{email,password}=loginData;
   console.log(email);
@@ -156,12 +160,22 @@ const Login = (props) => {
             </Col>
           </Row>
           {/* <Main/> */}
+          <div>
+            {usersData?.map((i)=>(
+              <>
+              <h1>{i.Name}</h1>
+              <p>{i.Id}</p>
+              </>
+              
+            ))}
+          </div>
 
         </Container>
       </div>
     </React.Fragment>
   )
 }
+
 
 const mapStateToProps = state => {
   const { error } = state.Login
@@ -178,3 +192,10 @@ export default withRouter(
 //   loginUser: PropTypes.func,
 //   socialLogin: PropTypes.func
 // }
+
+// function userExists(name){
+//  const found = arrayOfUsers.some(el =>el.Name === name);
+//  return found;
+// }
+
+// console.log(userExists("manoj"))

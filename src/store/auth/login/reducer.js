@@ -1,6 +1,10 @@
 import * as type from "./actionTypes";
 
- const Login = (state = {users:[]}, action)=>{
+
+const initialState = {
+  users:[]
+}
+ const Login = (state =initialState, action)=>{
     switch(action.type){
         case type.GET_USERS_SUCCESS:
         return {
